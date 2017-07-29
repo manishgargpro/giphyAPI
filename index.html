@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Giphy Search Engine</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+
+<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="jumbotron jumbotron-fluid">
+				<h2 class="display text-center">Gifs</h2>
+			</div>
+		</div>
+	</div>
+	<div class="container snail">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="wrap">
+					<div class="search text-center">
+						<input type="text" class="searchGifs" placeholder="Keyword">
+						<button type="submit" class="searchButton">
+							Search
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container-fluid gif-container">
+	</div>
+	<div class="container-fluid">
+		<div class="row text-center">
+			<div class="btn-group" role="group" aria-label="...">
+			  <ul class="pagination">
+				  <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span></button>
+				  <li class="page"></li>
+				  <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></button>
+			  </ul>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="jquery-3.2.1.js"></script>
+	<script type="text/javascript" src="app.js"></script>
+</body>
+
+</html>
