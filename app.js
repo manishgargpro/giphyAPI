@@ -22,7 +22,7 @@ function getGifs(searchTerm) {
 	var settings = {
 		"async": true,
 		"crossDomain": true,
-		"url": "http://api.giphy.com/v1/gifs/search?api_key=54f4043575b14e258a8647789f238224&q=" + searchTerm + "&limit=10&offset=" + page + "",
+		"url": "https://api.giphy.com/v1/gifs/search?api_key=54f4043575b14e258a8647789f238224&q=" + searchTerm + "&limit=10&offset=" + page + "",
 		"method": "GET",
 	}
 
