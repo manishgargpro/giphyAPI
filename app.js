@@ -10,7 +10,7 @@ $(".search-button").click(function() {
 	createButtons();
 });
 
-$(".key-button").click(function(){
+$(".key-button").click(function() {
 	console.log("clicking key works")
 })
 
@@ -34,11 +34,14 @@ function getGifs(searchTerm) {
 		}
 		$(".page").html(page);
 		$(".search-result").click(function() {
+			console.log("clicking result works");
+			var index = $(this).index();
+			console.log(index);
 			if ($(this).hasClass("downsized-still")) {
-				$(this).replaceWith(createGifs(this, response));
-			}if ($(this).hasClass("original-moving")){
+				$(this).replaceWith(createGifs(response.data[index]));
+			} else if ($(this).hasClass("original-moving")) {
 				console.log("works")
-				$(this).replaceWith(createStills(this, response));
+				$(this).replaceWith(createStills(response.data[index]));
 			}
 		});
 	});
@@ -60,36 +63,30 @@ function createResults(data) {
 	return container;
 }
 
-function createButtons(){
+function createButtons() {
 	//if (){
-		var button = document.createElement('button');
-		$(button).html($("input").val());
-		$(button).addClass("btn btn-default key-button");
-		$(".button-container").append(button);
+	var button = document.createElement('button');
+	$(button).html($("input").val());
+	$(button).addClass("btn btn-default key-button");
+	$(".button-container").append(button);
 	//}
 }
 
-function createGifs(gif, response){
-	console.log("clicking result works");
-	var index = $(gif).index();
-	console.log(index);
+function createGifs(still) {
 	var gifMoving = document.createElement('img');
 	$(gifMoving).attr({
-			"class": "img-responsive search-result original-moving",
-			"src": response.data[index].images.original.url,
-		});
+		"class": "img-responsive search-result original-moving",
+		"src": still.images.original.url,
+	});
 	return gifMoving;
 }
 
-function createStills(gif, response){
-	console.log("clicking result works");
-	var index = $(gif).index();
-	console.log(index);
+function createStills(gif) {
 	var gifStatic = document.createElement('img');
 	$(gifStatic).attr({
-			"class": "img-responsive search-result downsized-still",
-			"src": response.data[index].images.downsized_still.url,
-		});
+		"class": "img-responsive search-result downsized-still",
+		"src": gif.images.downsized_still.url,
+	});
 	return gifStatic;
 }
 
