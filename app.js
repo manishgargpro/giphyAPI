@@ -1,3 +1,5 @@
+//so there aren't many comments in this one, only because i focused really hard on just getting it done. if i missed anything or if you have any questions, let me know//
+
 console.log("linked");
 
 var gifsURL = "";
@@ -105,4 +107,5 @@ function createStills(gifID) {
 	return gifStatic;
 }
 
+//this is the one function that i wasn't able to complete before i turned it in. will keep working on it, maybe will work, maybe won't//
 //function paginate()
