@@ -1,24 +1,23 @@
 console.log("linked");
 
+var gifsURL = "";
+
 $(".search-button").click(function() {
 	var gifsSearch = $("input").val();
 	console.log(gifsSearch);
-	var gifsURL = encodeURIComponent(gifsSearch);
+	gifsURL = encodeURIComponent(gifsSearch);
 	console.log(gifsURL);
-	$(".gif-container").empty();
-	getGifs(gifsURL);
-	createButtons();
+	getGifs(gifsURL, pageNum);
+	createButtons(gifsSearch);
 });
 
-$(".key-button").click(function() {
-	console.log("clicking key works")
-})
-
-var page = 0;
+var pageNum = 0;
 
 var buttonArray = [];
 
-function getGifs(searchTerm) {
+function getGifs(searchTerm, page) {
+	$(".gif-container").empty();
+
 	var settings = {
 		"async": true,
 		"crossDomain": true,
@@ -33,27 +32,37 @@ function getGifs(searchTerm) {
 			$(".gif-container").append(staticGif);
 		}
 		$(".page").html(page);
-		$(".search-result").click(function() {
-			console.log("clicking result works");
-			var index = $(this).index();
-			console.log(index);
-			if ($(this).hasClass("downsized-still")) {
-				$(this).replaceWith(createGifs(response.data[index]));
-			} else if ($(this).hasClass("original-moving")) {
-				console.log("works")
-				$(this).replaceWith(createStills(response.data[index]));
-			}
-		});
 	});
 }
+
+$("body").on("click", ".key-button", function(){
+	gifsURL = encodeURIComponent($(this).html())
+	getGifs(gifsURL);
+})
+
+$("body").on("click", ".search-result", function() {
+	console.log("clicking result works");
+	if ($(this).attr("data-animated") == "false") {
+		var pictureID = $(this).attr("id")
+		console.log(pictureID);
+		$(this).replaceWith(createGifs(pictureID));
+	} else if ($(this).attr("data-animated") == "true") {
+		var pictureID = $(this).attr("id")
+		console.log(pictureID);
+		console.log("works")
+		$(this).replaceWith(createStills(pictureID));
+	}
+});
 
 function createResults(data) {
 	var container = document.createElement('div');
 	var gifStatic = document.createElement('img');
 	var gifRating = document.createElement('span');
 	$(gifStatic).attr({
-			"class": "img-responsive search-result downsized-still",
+			"class": "img-responsive search-result",
 			"src": data.images.downsized_still.url,
+			"id": data.id,
+			"data-animated": false
 		}),
 		gifRating.innerHTML = "Rating: " + data.rating;
 
@@ -63,29 +72,35 @@ function createResults(data) {
 	return container;
 }
 
-function createButtons() {
-	//if (){
-	var button = document.createElement('button');
-	$(button).html($("input").val());
-	$(button).addClass("btn btn-default key-button");
+function createButtons(text) {
+	var buttons = buttonArray[text]
+	if (!buttonArray[text]){
+		buttonArray[text] = true;
+		var button = document.createElement('button');
+		$(button).html(text);
+		$(button).addClass("btn btn-default key-button");
+	}
 	$(".button-container").append(button);
-	//}
 }
 
-function createGifs(still) {
+function createGifs(stillID) {
 	var gifMoving = document.createElement('img');
 	$(gifMoving).attr({
-		"class": "img-responsive search-result original-moving",
-		"src": still.images.original.url,
+		"class": "img-responsive search-result",
+		"id": stillID,
+		"src": "https://media1.giphy.com/media/" + stillID + "/giphy.gif",
+		"data-animated": "true"
 	});
 	return gifMoving;
 }
 
-function createStills(gif) {
+function createStills(gifID) {
 	var gifStatic = document.createElement('img');
 	$(gifStatic).attr({
-		"class": "img-responsive search-result downsized-still",
-		"src": gif.images.downsized_still.url,
+		"class": "img-responsive search-result",
+		"id": gifID,
+		"src": "https://media1.giphy.com/media/" + gifID + "/giphy_s.gif",
+		"data-animated": "false"
 	});
 	return gifStatic;
 }
