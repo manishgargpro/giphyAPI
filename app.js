@@ -33,13 +33,14 @@ function getGifs(searchTerm, page) {
 			var staticGif = createResults(response.data[i]);
 			$(".gif-container").append(staticGif);
 		}
-		$(".page").html(page);
+		$(".page-buttons").show();
+		$(".page-num").html((page/10) + 1);
 	});
 }
 
 $("body").on("click", ".key-button", function(){
 	gifsURL = encodeURIComponent($(this).html())
-	getGifs(gifsURL);
+	getGifs(gifsURL, pageNum);
 })
 
 $("body").on("click", ".search-result", function() {
@@ -54,6 +55,16 @@ $("body").on("click", ".search-result", function() {
 		console.log("works")
 		$(this).replaceWith(createStills(pictureID));
 	}
+});
+
+$("body").on("click", "#left-button", function() {
+	pageNum = pageNum - 10;
+	paginate();
+});
+
+$("body").on("click", "#right-button", function() {
+	pageNum = pageNum + 10;
+	paginate();
 });
 
 function createResults(data) {
@@ -107,5 +118,6 @@ function createStills(gifID) {
 	return gifStatic;
 }
 
-//this is the one function that i wasn't able to complete before i turned it in. will keep working on it, maybe will work, maybe won't//
-//function paginate()
+function paginate(){
+	getGifs(gifsURL, pageNum);
+}
