@@ -1,16 +1,25 @@
 //so there aren't many comments in this one, only because i focused really hard on just getting it done. if i missed anything or if you have any questions, let me know//
 
-console.log("linked");
-
 var gifsURL = "";
 
 $(".search-button").click(function() {
 	var gifsSearch = $("input").val();
-	console.log(gifsSearch);
-	gifsURL = encodeURIComponent(gifsSearch);
-	console.log(gifsURL);
-	getGifs(gifsURL, pageNum);
-	createButtons(gifsSearch);
+		if (gifsSearch != "") {
+		gifsURL = encodeURIComponent(gifsSearch);
+		getGifs(gifsURL, pageNum);
+		createButtons(gifsSearch);
+	}
+});
+
+$(document).keypress(function(e){
+	var gifsSearch = $("input").val();
+	if (e.which == 13) {
+		if (gifsSearch != "") {
+			gifsURL = encodeURIComponent(gifsSearch);
+			getGifs(gifsURL, pageNum);
+			createButtons(gifsSearch);
+		}
+	}
 });
 
 var pageNum = 0;
@@ -28,7 +37,6 @@ function getGifs(searchTerm, page) {
 	}
 
 	$.ajax(settings).done(function(response) {
-		console.log(response);
 		for (i = 0; i < response.data.length; i++) {
 			var staticGif = createResults(response.data[i]);
 			$(".gif-container").append(staticGif);
