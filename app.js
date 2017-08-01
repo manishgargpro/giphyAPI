@@ -2,7 +2,12 @@
 
 var gifsURL = "";
 
+var pageNum;
+
+var buttonArray = [];
+
 $(".search-button").click(function() {
+	pageNum = 0;
 	var gifsSearch = $("input").val();
 		if (gifsSearch != "") {
 		gifsURL = encodeURIComponent(gifsSearch);
@@ -12,6 +17,7 @@ $(".search-button").click(function() {
 });
 
 $(document).keypress(function(e){
+	pageNum = 0;
 	var gifsSearch = $("input").val();
 	if (e.which == 13) {
 		if (gifsSearch != "") {
@@ -21,10 +27,6 @@ $(document).keypress(function(e){
 		}
 	}
 });
-
-var pageNum = 0;
-
-var buttonArray = [];
 
 function getGifs(searchTerm, page) {
 	$(".gif-container").empty();
@@ -47,6 +49,7 @@ function getGifs(searchTerm, page) {
 }
 
 $("body").on("click", ".key-button", function(){
+	pageNum = 0;
 	gifsURL = encodeURIComponent($(this).html())
 	getGifs(gifsURL, pageNum);
 })
