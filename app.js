@@ -9,14 +9,14 @@ var buttonArray = [];
 $(".search-button").click(function() {
 	pageNum = 0;
 	var gifsSearch = $("input").val();
-		if (gifsSearch != "") {
+	if (gifsSearch != "") {
 		gifsURL = encodeURIComponent(gifsSearch);
 		getGifs(gifsURL, pageNum);
 		createButtons(gifsSearch);
 	}
 });
 
-$(document).keypress(function(e){
+$(document).keypress(function(e) {
 	pageNum = 0;
 	var gifsSearch = $("input").val();
 	if (e.which == 13) {
@@ -44,11 +44,11 @@ function getGifs(searchTerm, page) {
 			$(".gif-container").append(staticGif);
 		}
 		$(".page-buttons").show();
-		$(".page-num").html((page/10) + 1);
+		$(".page-num").html((page / 10) + 1);
 	});
 }
 
-$("body").on("click", ".key-button", function(){
+$("body").on("click", ".key-button", function() {
 	pageNum = 0;
 	gifsURL = encodeURIComponent($(this).html())
 	getGifs(gifsURL, pageNum);
@@ -98,7 +98,7 @@ function createResults(data) {
 
 function createButtons(text) {
 	var buttons = buttonArray[text]
-	if (!buttonArray[text]){
+	if (!buttonArray[text]) {
 		buttonArray[text] = true;
 		var button = document.createElement('button');
 		$(button).html(text);
@@ -129,6 +129,6 @@ function createStills(gifID) {
 	return gifStatic;
 }
 
-function paginate(){
+function paginate() {
 	getGifs(gifsURL, pageNum);
 }
